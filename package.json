@@ -1,13 +1,15 @@
 {
   "name": "desafio",
   "version": "1.0.0",
-  "description": "",
+  "description": "Projeto de corrida mario kart. ",
   "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "author": "Vitória Luz",
   "license": "ISC",
   "dependencies": {
     "desafio": "file:"

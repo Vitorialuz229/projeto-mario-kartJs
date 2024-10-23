@@ -1,42 +1,42 @@
 const readline = require("readline");
 
-// Definindo os personagens
-const personagens = [
+// Defining the characters
+const characters = [
   {
-    nome: "Mario",
-    velocidade: 4,
-    manobrabilidade: 3,
-    poder: 3,
+    name: "Mario",
+    speed: 4,
+    maneuverability: 3,
+    power: 3,
   },
   { 
-    nome: "Peach", 
-    velocidade: 3, 
-    manobrabilidade: 4, 
-    poder: 2 
+    name: "Peach", 
+    speed: 3, 
+    maneuverability: 4, 
+    power: 2 
   },
   { 
-    nome: "Yoshi", 
-    velocidade: 2, 
-    manobrabilidade: 4, 
-    poder: 3 
+    name: "Yoshi", 
+    speed: 2, 
+    maneuverability: 4, 
+    power: 3 
   },
   { 
-    nome: "Bowser", 
-    velocidade: 5, 
-    manobrabilidade: 2, 
-    poder: 5 
+    name: "Bowser", 
+    speed: 5, 
+    maneuverability: 2, 
+    power: 5 
   },
   { 
-    nome: "Luigi", 
-    velocidade: 3, 
-    manobrabilidade: 4, 
-    poder: 4 
+    name: "Luigi", 
+    speed: 3, 
+    maneuverability: 4, 
+    power: 4 
   },
   { 
-    nome: "Donkey Kong", 
-    velocidade: 2, 
-    manobrabilidade: 2, 
-    poder: 5 
+    name: "Donkey Kong", 
+    speed: 2, 
+    maneuverability: 2, 
+    power: 5 
   },
 ];
 
@@ -45,48 +45,49 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-function escolherPersonagem(jogador, callback) {
-  console.log(`\nEscolha um personagem para ${jogador}:`);
-  personagens.forEach((personagem, index) => {
-    console.log(`${index + 1}: ${personagem.nome}`);
+function chooseCharacter(player, callback) {
+  console.log(`\nEscolha um personagem para ${player}:`);
+  
+  characters.forEach((character, index) => {
+    console.log(`${index + 1}: ${character.name} - Velocidade: ${character.speed}, Manobrabilidade: ${character.maneuverability}, Poder: ${character.power}`);
   });
 
-  rl.question(`Digite o número do personagem para ${jogador}: `, (resposta) => {
-    const escolha = parseInt(resposta) - 1;
-    if (escolha >= 0 && escolha < personagens.length) {
-      callback(personagens[escolha]);
+  rl.question(`Digite o número do personagem para ${player}: `, (response) => {
+    const choice = parseInt(response) - 1;
+    if (choice >= 0 && choice < characters.length) {
+      callback(characters[choice]);
     } else {
       console.log("Escolha inválida, tente novamente.");
-      escolherPersonagem(jogador, callback);
+      chooseCharacter(player, callback);
     }
   });
 }
 
-function criarJogador(nomeDoJogador, personagemEscolhido) {
+function createPlayer(playerName, chosenCharacter) {
   return {
-    nome: nomeDoJogador,
-    personagem: personagemEscolhido.nome,
-    velocidade: personagemEscolhido.velocidade,
-    manobrabilidade: personagemEscolhido.manobrabilidade,
-    poder: personagemEscolhido.poder,
-    pontuacao: 0,
+    name: playerName,
+    character: chosenCharacter.name,
+    speed: chosenCharacter.speed,
+    maneuverability: chosenCharacter.maneuverability,
+    power: chosenCharacter.power,
+    score: 0,
   };
 }
 
-function iniciarJogo() {
-  escolherPersonagem("Player 1", (player1Escolhido) => {
-    const player1 = criarJogador("Player 1", player1Escolhido);
-    escolherPersonagem("Player 2", (player2Escolhido) => {
-      const player2 = criarJogador("Player 2", player2Escolhido);
+function startGame() {
+  chooseCharacter("Player 1", (player1Chosen) => {
+    const player1 = createPlayer("Player 1", player1Chosen);
+    chooseCharacter("Player 2", (player2Chosen) => {
+      const player2 = createPlayer("Player 2", player2Chosen);
 
-      console.log(`\nPlayer 1 escolheu: ${player1.personagem}`);
+      console.log(`\nPlayer 1 escolheu: ${player1.character}`);
       console.log(
-        `Atributos de Player 1: Velocidade: ${player1.velocidade}, Manobrabilidade: ${player1.manobrabilidade}, Poder: ${player1.poder}, Pontuação: ${player1.pontuacao}`
+        `Atributos de Player 1: Velocidade: ${player1.speed}, Manobrabilidade: ${player1.maneuverability}, Poder: ${player1.power}, Pontuação: ${player1.score}`
       );
 
-      console.log(`\nPlayer 2 escolheu: ${player2.personagem}`);
+      console.log(`\nPlayer 2 escolheu: ${player2.character}`);
       console.log(
-        `Atributos de Player 2: Velocidade: ${player2.velocidade}, Manobrabilidade: ${player2.manobrabilidade}, Poder: ${player2.poder}, Pontuação: ${player2.pontuacao}`
+        `Atributos de Player 2: Velocidade: ${player2.speed}, Manobrabilidade: ${player2.maneuverability}, Poder: ${player2.power}, Pontuação: ${player2.score}`
       );
 
       rl.close();
@@ -94,4 +95,4 @@ function iniciarJogo() {
   });
 }
 
-iniciarJogo();
+startGame();

@@ -78,7 +78,35 @@ async function rollDice() {
   return Math.floor(Math.random() * 6) + 1; 
 }
 
-function startGame() {
+async function getRandomBlock() {
+  let random = Math.random(); 
+  let result 
+
+  switch(true) {
+    case random < 0.33: 
+      result = 'RETA'
+      break;
+    case random < 0.66: 
+      result = 'CURVA'
+      break;
+    default: 
+      result = 'CONFRONTO'
+  }
+  
+  return result;
+}
+
+async function playRaceEngine(character1, character2) {
+  for(let round = 1; round <= 5; round++) { 
+    console.log(`🏁 Rodada ${round}`);
+
+    // sorteia bloco
+    let block = getRandomBlock();
+    console.log(`Bloco: ${block}`);
+  }
+}
+
+(async function startGame() {
   chooseCharacter("Player 1", (player1Chosen) => {
     const player1 = createPlayer("Player 1", player1Chosen);
     chooseCharacter("Player 2", (player2Chosen) => {
@@ -94,9 +122,13 @@ function startGame() {
         `Atributos de Player 2: Velocidade: ${player2.speed}, Manobrabilidade: ${player2.maneuverability}, Poder: ${player2.power}, Pontuação: ${player2.score}`
       );
 
+      console.log(`🏁🚨 Corrida entre ${player1.character} e ${player2.character} começando... \n!`);
+
+      playRaceEngine(player1.character, player2.character);
+
       rl.close();
     });
   });
-}
+})();
 
 startGame();

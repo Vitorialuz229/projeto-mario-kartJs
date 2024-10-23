@@ -74,6 +74,10 @@ function createPlayer(playerName, chosenCharacter) {
   };
 }
 
+async function rollDice() { 
+  return Math.floor(Math.random() * 6) + 1; 
+}
+
 function startGame() {
   chooseCharacter("Player 1", (player1Chosen) => {
     const player1 = createPlayer("Player 1", player1Chosen);
